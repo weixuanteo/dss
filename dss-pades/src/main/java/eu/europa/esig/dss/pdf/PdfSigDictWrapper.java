@@ -139,4 +139,12 @@ public class PdfSigDictWrapper implements PdfSignatureDictionary {
 		return byteRange;
 	}
 
+	@Override
+	public byte[] getCert() {
+		try {
+			return dictionary.getBinariesValue("Cert");
+		} catch (IOException e) {
+			throw new DSSException("Unable to retrieve cert");
+		}
+	}
 }

@@ -108,4 +108,5 @@ public interface PdfSignatureDictionary {
 	 */
 	Date getSigningDate();
 
+	byte[] getCert();
 }
