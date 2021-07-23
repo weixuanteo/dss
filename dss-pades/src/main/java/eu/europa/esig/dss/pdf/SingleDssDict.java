@@ -48,6 +48,9 @@ public class SingleDssDict extends AbstractPdfDssDict {
 	 * @param documentDict {@link PdfDict}
 	 * @return {@link SingleDssDict}
 	 */
+
+	private final String type;
+
 	public static SingleDssDict extract(PdfDict documentDict) {
 		if (documentDict != null) {
 			final PdfDict dssCatalog = documentDict.getAsDict(PAdESConstants.DSS_DICTIONARY_NAME);
@@ -67,6 +70,7 @@ public class SingleDssDict extends AbstractPdfDssDict {
 	protected SingleDssDict(PdfDict dssDictionary) {
 		super(dssDictionary);
 		this.vris = extractVRIs(dssDictionary);
+		this.type = extractType(dssDictionary);
 	}
 
 	private List<PdfVRIDict> extractVRIs(PdfDict dssDictionary) {
@@ -96,6 +100,10 @@ public class SingleDssDict extends AbstractPdfDssDict {
 			LOG.trace("No VRI dictionary found in DSS dictionary");
 		}
 		return Collections.emptyList();
+	}
+
+	private String extractType(PdfDict dssDictionary) {
+		return dssDictionary.getNameValue("Type");
 	}
 
 	private boolean isDictionaryKey(String name) {
@@ -134,6 +142,10 @@ public class SingleDssDict extends AbstractPdfDssDict {
 	@Override
 	public List<PdfVRIDict> getVRIs() {
 		return vris;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	@Override
